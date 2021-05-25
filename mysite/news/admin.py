@@ -1,3 +1,8 @@
 from django.contrib import admin
+from dashboard.models import *
 
-# Register your models here.
+admin.site.register(Category)
+admin.site.register(News)
+admin.site.register(Author)
+admin.site.register(Reference)
+
