@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>News List</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="{%url 'dashboard' %}">Home</a></li>
+          <li class="breadcrumb-item active">News List</li>
+        </ol>
+      </div>
+    </div>
+  </div><!-- /.container-fluid -->
+</section>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">News Lists</h3>
+
+                <div class="card-tools">
+                    <div class="btn btn-block btn-success"><a href="{% url 'news_add' %}">Add</a></div>
+                </div>
+              </div>
+                 <!-- /.card-header -->
+              <div class="card-body table-responsive p-0">
+                <table class="table table-hover text-nowrap">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Title</th>
+                      <th>Date</th>
+<!--                      <th>Description</th>-->
+<!--                      <th>Image</th>-->
+<!--                      <th>Views</th>-->
+<!--                      <th>Category_Name</th>-->
+<!--                      <th>Author_Name</th>-->
+                      <th>Edit</th>
+                      <th>Delete</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for new in news %}
+                    <tr>
+                      <td>{{ forloop.counter }}</td>
+                      <td>{{ new.title }}</td>
+                       <td>{{ new.created_at }}</td>
+<!--                      <td>{{ new.description }}</td>-->
+<!--                      <td>{{ new.image }}</td>-->
+<!--                      <td>{{ new.views }}</td>-->
+<!--                      <td>{{ new.category.name }}</td>-->
+<!--                      <td>{{ new.author.full_name }}</td>-->
+                      <td><div class="btn btn-block btn-warning"><a href="{% url 'news_edit' news_id=new.id %}">Edit</a></div></td>
+                      <td><div class="btn btn-block btn-danger"><a href="{% url 'delete_news' news_id=new.id %}">Delete</a></div></td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+

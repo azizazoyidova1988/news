@@ -1,0 +1,392 @@
+{%extends 'base_news.html'%}
+{%load static%}
+{%block content %}
+<a href="#" class="bigrek" style="background: #f1f1f1 url (/media/{%static 'img/news.jpg'%}) 50% 136px no-repeat"></a>
+<div class="container wrapper">
+        <div class="l_news">
+        <div class="title"> NEWS</div>
+           </div>
+    <div class="clearfix"></div>
+    <div class="fav_news">
+        <div class="big_fav">
+            <div id="bigfav" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner" role="listbox">
+                    <div class="item active">
+                        <img src="{%static 'frontend/img/navbar.jpg'%}" alt="...">
+                        <a href="#">
+                            <div class="carousel-caption">
+                                <div class="caption_pos">
+                                    <div class="type_news">POLITIC</div>
+                                    <div class="title">Исроилнинг «Темир гумбаз» мудофаа тизими қандай ишлайди?
+                                    </div>
+                                    <span class="date">15.05.2021</span>
+                                    <span class="com_count"><span class="fa fa-comments"></span> 125 </span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                </div>
+                <div class="control">
+                    <a class="left carousel-control" href="#bigfav" role="button" data-slide="prev">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a class="right carousel-control" href="#bigfav" role="button" data-slide="next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    <div class="list_fav">
+			<div class="title"><b>Actual </b> news</div>
+			<ul>
+				{% for actual in actuals %}
+				{% if forloop.counter0 < 4 %}
+					<li>
+						<a href="{% url 'view' news_id=actual.id %}">
+							<div class="list_fimg">
+								<img src="/media/{{actual.image}}" alt="">
+							</div>
+							<span class="list_type">{{actual.category.name}}</span>
+							<span class="list_title">{{actual.title}}</span>
+							<span class="date">{{actual.created_at}}</span>
+						</a>
+					</li>
+				{% endif %}
+				{% endfor %}
+			</ul>
+			<a href="#" class="more">More current news</a>
+		</div>
+        <div class="clearfix"></div>
+        </div>
+
+    <div class="head_title">popular news</div>
+    <div class="popular">
+        <div class="row">
+
+            {%for popular in populars%}
+
+            <div class="col-md-3 col-xs-12">
+                <div class="p_img"><img src="/media/{{popular.image}}" alt=""></div>
+                <a href="{% url 'view' news_id=popular.id %}">{{popular.title}}</a>
+                <span class="date">{{ popular.created_at|date:'d.m.Y' }}</span>
+                <span class="p_type"><i class="fa fa-pencil"></i> {{popular.category.title}}</span>
+            </div>
+            {%endfor%}
+        </div>
+    </div>
+    </div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-xs-12">
+            <a href="#" class="big_more">more news</a>
+            <div class="head_title">News Uzbekistan</div>
+			<div class="news_box">
+				<div class="row">
+					{% for politic in politics %}
+					{% if forloop.counter0 < 2%}
+					<div class="col-md-6 col-xs-12">
+						<div class="big_news">
+							<div class="big_n_img"><img src="/media/{{politic.image}}" alt=""></div>
+							<a href="#">{{politic.title}}</a>
+							<span class="date">{{politic.created_at}}</span>
+							<span class="news_type"><i class="fa fa-pencil"></i> {{politic.author.full_name}}</span>
+							<div class="desc">{{politic.description}}</div>
+						</div>
+					</div>
+					{% endif %}
+					{% endfor %}
+
+				</div>
+			</div>
+			<div class="news_box">
+				<div class="row">
+					<div class="col-md-6 col-xs-12">
+						<ul class="list_news">
+							{% for politic in politics %}
+							<li>
+								<div class="list_img"><img src="/media/{{politic.image}}" alt=""></div>
+								<a href="{% url 'view' news_id=politic.id %}">{{politic.title}}</a>
+								<span class="date">{{politic.created_at}}</span>
+								<span class="news_type"><i class="fa fa-pencil"></i> {{politic.author.full_name}}</span>
+							</li>
+							{% endfor %}
+						</ul>
+					</div>
+
+				</div>
+			</div>
+			<a href="#" class="big_more">more news</a>
+
+        </div>
+	<div class="col-md-4 col-xs-12">
+		<div class="head_title">Latest news</div>
+		<div id="listnews" class="carousel slide listnews" data-ride="carousel">
+                <div class="news_box">
+                    <div class="carousel-inner" role="listbox">
+                        <div class="item active">
+                            <ul class="list_news">
+                                {%for fresh in fresh_news%}
+                                <li>
+
+                                    <div class="list_img"><img src=" /media/{{fresh.image}}" alt=""></div>
+                                    <a href="#">{{fresh.title}}</a>
+                                    <span class="date">{{ fresh.created_at|date:'d.m.Y' }}</span>
+                                    <span class="news_type"><i
+                                            class="fa fa-pencil"></i> {{ fresh.category.name }}</span>
+                                </li>
+                                {%endfor%}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+	<div class="head_title colum">Columnists</div>
+	<div class="news_box colums">
+		<ul class="list_news">
+			{%for author in authors%}
+			<li>
+				<div class="list_img"><img src="/media/{{author.image}}" alt=""></div>
+				<a href="#">{{author.full_name}}</a>
+				<div class="col_type">{{author.description}}</div>
+			</li>
+			{%endfor%}
+		</ul>
+	</div>
+
+	<div class="subscribe">
+		<div class="title">Subscribe to  <b> 1news.uz</b></div>
+		<form action="">
+			<div class="input-group">
+				<input type="text" name="email" placeholder="Email">
+				<button class="submit">Sign In</button>
+			</div>
+		</form>
+	</div>
+        </div>
+    		</div>
+	<div class="culture">
+	<div class="container">
+		<div class="title">Science and Technology</div>
+		<div id="culture" class="carousel slide" data-ride="carousel">
+			<ol class="carousel-indicators">
+				<li data-target="#culture" data-slide-to="0" class="active"></li>
+				<li data-target="#culture" data-slide-to="1"></li>
+			</ol>
+			<div class="carousel-inner" role="listbox">
+				<div class="item active">
+					{% for science in sciences %}
+					{% if forloop.counter0 < 2 %}
+					<div class="big_cult">
+						<img src="/media/{{science.image}}" alt="">
+						<a href="{% url 'view' news_id=science.id %}">
+							<div class="caption">{{science.title}}</div>
+						</a>
+					</div>
+					{% endif %}
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+		<a href="#" class="more">More news</a>
+	</div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 col-xs-12">
+			<div class="head_title">SOCIETY</div>
+			<div class="news_box">
+				<div class="row">
+					{% for new  in news %}
+					{% if forloop.counter0 < 2 %}
+					<div class="col-md-6 col-xs-12">
+						<div class="big_news">
+							<div class="big_n_img"><img src="/media/{{new.image}}" alt=""></div>
+							<a href="{% url 'view' news_id=new.id %}">{{new.title}}</a>
+							<span class="date">{{new.created_at}}</span>
+							<span class="news_type"><i class="fa fa-pencil"></i> {{new.author.full_name}}</span>
+							<div class="desc">{{new.description}}</div>
+						</div>
+					</div>
+					{% endif  %}
+					{% endfor %}
+
+				</div>
+			</div>
+			<div class="news_box">
+				<div class="row">
+					<div class="col-md-6 col-xs-12">
+						<ul class="list_news">
+							{% for sum in sums %}
+							{% if forloop.counter0 < 5 %}
+							<li>
+								<div class="list_img"><img src="/media/{{sum.image}}" alt=""></div>
+								<a href="{% url 'view' news_id=sum.id %}">{{sum.title}}</a>
+								<span class="date">{{sum.created_at}}</span>
+								<span class="news_type"><i class="fa fa-pencil"></i> {{sum.author.full_name}}</span>
+							</li>
+							{% endif %}
+							{% endfor %}
+						</ul>
+					</div>
+					<div class="col-md-6 col-xs-12">
+						<ul class="list_news">
+							{% for sum in sums %}
+							{% if forloop.counter > 5 and forloop.counter < 11 %}
+							<li>
+								<div class="list_img"><img src="/media/{{sum.image}}" alt=""></div>
+								<a href="{% url 'view' news_id=sum.id %}">{{sum.title}}</a>
+								<span class="date">{{sum.created_at}}</span>
+								<span class="news_type"><i class="fa fa-pencil"></i> {{sum.author.full_name}}</span>
+							</li>
+							{% endif %}
+							{% endfor %}
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<a href="#" class="big_more">more news</a>
+
+			<div class="head_title">In the WORLD</div>
+			<div class="news_box">
+				<div class="row">
+					<div class="col-md-6 col-xs-12">
+						{% for world in worlds %}
+						{% if forloop.counter0 < 2%}
+						<div class="big_news">
+							<div class="big_n_img"><img src="/media/{{world.image}}" alt=""></div>
+							<a href="{% url 'view' news_id=world.id %}">{{world.title}}</a>
+							<span class="date">{{world.created_at}}</span>
+							<span class="news_type"><i class="fa fa-pencil"></i> {{world.author.full_name}}</span>
+							<div class="desc">{{world.descriptions}}</div>
+						</div>
+					</div>
+					{% endif %}
+					{% endfor %}
+				</div>
+			</div>
+			<div class="news_box">
+				<div class="row">
+					<div class="col-md-6 col-xs-12">
+						<ul class="list_news">
+							{% for sum in sums %}
+							{% if forloop.counter0 < 4 %}
+							<li>
+								<div class="list_img"><img src="/media/{{sum.image}}" alt=""></div>
+								<a href="{% url 'view' news_id=sum.id %}">{{sum.title}}</a>
+								<span class="date">{{sum.created_at}}</span>
+								<span class="news_type"><i class="fa fa-pencil"></i> {{sum.author.full_name}}</span>
+							</li>
+							{% endif %}
+							{% endfor %}
+						</ul>
+					</div>
+					<div class="col-md-6 col-xs-12">
+						<ul class="list_news">
+							{% for sum in sums %}
+							{% if forloop.counter > 4 and forloop.counter < 9 %}
+							<li>
+								<div class="list_img"><img src="/media/{{sum.image}}" alt=""></div>
+								<a href="{% url 'view' news_id=sum.id %}">{{sum.title}}</a>
+								<span class="date">{{sum.created_at}}</span>
+								<span class="news_type"><i class="fa fa-pencil"></i> {{sum.author.full_name}}</span>
+							</li>
+							{% endif %}
+							{% endfor %}
+						</ul>
+					</div>
+				</div>
+			</div>
+			<a href="#" class="big_more">more news</a>
+		</div>
+
+
+            <div class="head_title photo_news">AUTHORS IN PHOTOS</div>
+            <div id="technews" class="carousel slide listnews" data-ride="carousel">
+                {%for author in authors%}
+                {% if forloop.counter0 < 4 %}
+					<div class="col-md-6 col-xs-12">
+                    <div class="carousel-inner" role="listbox">
+                        <div class="item active">
+                            <div class="full_img">
+                                <img src="/media/{{author.image}}" alt="">
+                            </div>
+                            <div class="news_box">
+                                <a href="#">{{author.full_name}}</a>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                {%endif%}
+                {%endfor%}
+
+            </div>
+
+            </div>
+           </div>
+    </div>
+<div class="row">
+<div class="col-md-6 col-xs-12">
+<div class="head_title sport">СПОРТ</div>
+    <div id="econews" class="carousel slide listnews" data-ride="carousel">
+    <div class="news_box">
+    <div class="carousel-inner" role="listbox">
+    <div class="item active">
+    <ul class="list_news">
+        {% for sport in sports%}
+            <li>
+                <div class="list_img"><img src="/media/{{sport.image}}" alt=""></div>
+                <a href="#">{{sport.title}}</a>
+                <span class="date">12.01.2017</span>
+                <span class="news_type"><i class="fa fa-pencil"></i> {{sport.category.name}}</span>
+            </li>
+        {%endfor%}
+
+    </ul>
+    </div>
+    </div>
+</div>
+    </div>
+</div>
+
+ <div class="col-md-6 col-xs-12">
+<div class="head_title sport">ABOUT US</div>
+    <div id="econews" class="carousel slide listnews" data-ride="carousel">
+    <div class="news_box">
+    <div class="carousel-inner" role="listbox">
+    <div class="item active">
+    <ul class="list_news">
+        {% for about in abouts%}
+            <li>
+                <div class="list_img"><img src="/media/{{about.image}}" alt=""></div>
+                <a href="#">{{about.title}}</a>
+                <span class="date">12.01.2017</span>
+                <span class="news_type"><i class="fa fa-pencil"></i> {{about.category.name}}</span>
+            </li>
+        {%endfor%}
+
+    </ul>
+    </div>
+    </div>
+</div>
+    </div>
+</div>
+</div>
+
+
+				<div class="indi_box">
+					<ol class="carousel-indicators">
+						<li data-target="#econews" data-slide-to="0" class="active"></li>
+						<li data-target="#econews" data-slide-to="1"></li>
+					</ol>
+				</div>
+			</div>
+    <div class="foot_rek">
+        <img src="{%static 'img/foootrek.jpg'%}">
+    </div>
+</div>
+{%endblock%}
